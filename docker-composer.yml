@@ -1,1 +1,15 @@
+FROM node:18.16.1-alpine3.18
+
+RUN mkdir -p /app
+WORKDIR /app
+
+EXPOSE 3000
+
+# Install application dependencies
+RUN npm install
+
+# Run `npm audit fix --force` to fix known vulnerabilities
+RUN npm audit fix --force
+
+CMD npm run start
 
