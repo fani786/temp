@@ -1,5 +1,9 @@
 version: "3.8"
 
+# Define a custom network for your services
+networks:
+  my_network:
+
 services:
   nginx:
     build:
@@ -8,7 +12,7 @@ services:
     ports:
       - 80:80
     networks:
-      - frontend-network
+      - my_network
 
   frontend:
     build: 
@@ -19,33 +23,24 @@ services:
     volumes:
       - ./frontend:/app
     networks:
-      - frontend-network
-    depends_on:
-      - api
+      - my_network
 
   api:
     build: 
       context: ./api
       dockerfile: Dockerfile
-    expose:
-      - "5000"
+    ports:
+      - 5000:5000
     volumes:
       - ./api:/app
     networks:
-      - frontend-network
-      - api-network
-    depends_on:
-      - db
+      - my_network
 
   db:
     image: postgres:15.3-alpine3.18
-    networks:
-      - api-network
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
-
-networks:
-  frontend-network:
-  api-network:
+    networks:
+      - my_network
