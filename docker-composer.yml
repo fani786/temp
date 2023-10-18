@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    networks:
+      - frontend-network
+
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/app
+    networks:
+      - frontend-network
+    depends_on:
+      - api
+
+  api:
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    expose:
+      - "5000"
+    volumes:
+      - ./api:/app
+    networks:
+      - frontend-network
+      - api-network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15.3-alpine3.18
+    networks:
+      - api-network
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
+networks:
+  frontend-network:
+  api-network:
