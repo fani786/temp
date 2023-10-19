@@ -1,15 +1,46 @@
-FROM node:18.16.1-alpine3.18
-
-RUN mkdir -p /app
-WORKDIR /app
-
-EXPOSE 3000
-
-# Install application dependencies
-RUN npm install
-
-# Run `npm audit fix --force` to fix known vulnerabilities
-RUN npm audit fix --force
-
-CMD npm run start
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        .container {
+            background-color: #ffffff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Assignment Information</h1>
+        <ul>
+            <li><strong>Subject Name:</strong> System Administration</li>
+            <li><strong>Code:</strong> CSCI322</li>
+            <li><strong>Assignment Number:</strong> 3</li>
+            <li><strong>Your Name:</strong> Samah Hoque</li>
+            <li><strong>Student Number:</strong> 7211387</li>
+            <li><strong>Email ID:</strong> <a href="mailto:sh766@uowmail.edu.au">sh766@uowmail.edu.au</a></li>
+        </ul>
+    </div>
+</body>
+</html>
